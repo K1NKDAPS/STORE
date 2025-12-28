@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K1NKDAPSSTORE - Roblox Garden Items</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+            height: 10%;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ff0000;
+            border-left: 3px solid #ff0000;
+            border-right: 3px solid #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .logo {
+            text-align: center;
+        }
+
+        .logo h1 {
+            font-size: 1.2em;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+            margin-bottom: 2px;
+        }
+
+        .logo p {
+            color: #ddd;
+            font-size: 0.7em;
+        }
+
+        .filter-section {
+            text-align: center;
+            padding: 0.3vh 0.5vw;
+            background: rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+            height: 5%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3vw;
+            overflow-x: hidden;
+            overflow-y: auto;
+            flex-wrap: wrap;
+            border: 1px solid #ff0000;
+            border-left: 3px solid #ff0000;
+            border-right: 3px solid #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        .filter-section h3 {
+            font-size: clamp(8px, 0.8vw, 14px);
+            margin: 0;
+            white-space: nowrap;
+            margin-right: 0.3vw;
+            flex-shrink: 0;
+        }
+
+        .filter-btn {
+            display: inline-block;
+            padding: 0.2vh 0.4vw;
+            margin: 0;
+            border-radius: 0.3vw;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: clamp(7px, 0.7vw, 12px);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .filter-btn.active {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px currentColor;
+            font-weight: bold;
+        }
+
+        .filter-all {
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            border-color: #00d4ff;
+            color: #000;
+        }
+
+        .filter-common {
+            background: rgba(158, 158, 158, 0.3);
+            border-color: #9e9e9e;
+        }
+
+        .filter-uncommon {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: #4caf50;
+        }
+
+        .filter-rare {
+            background: rgba(33, 150, 243, 0.3);
+            border-color: #2196f3;
+        }
+
+        .filter-epic {
+            background: rgba(156, 39, 176, 0.3);
+            border-color: #9c27b0;
+        }
+
+        .filter-legendary {
+            background: rgba(255, 193, 7, 0.3);
+            border-color: #ffc107;
+            color: #000;
+        }
+
+        .filter-mythic {
+            background: rgba(244, 67, 54, 0.3);
+            border-color: #f44336;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .main-content {
+            flex-shrink: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 1%;
+            height: 75%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            border: 1px solid #ff0000;
+            border-left: 3px solid #ff0000;
+            border-right: 3px solid #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        .main-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .main-content::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .main-content::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 136, 0.5);
+            border-radius: 10px;
+        }
+
+        .main-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 136, 0.7);
+        }
+
+        .main-content .container {
+            width: 100%;
+            max-width: 1400px;
+            display: flex;
+            padding: 0;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(0, 1fr);
+            gap: 1.5vmin;
+            width: 100%;
+            padding: 1%;
+        }
+
+        .item-card {
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto 2fr auto auto;
+            gap: 5px;
+            height: 22vh;
+        }
+
+        .item-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 8px;
+            z-index: -1;
+            animation: neonBorder 2s linear infinite;
+        }
+
+        @keyframes neonBorder {
+            0%, 100% {
+                box-shadow: 0 0 5px currentColor,
+                            0 0 10px currentColor,
+                            0 0 20px currentColor,
+                            0 0 30px currentColor;
+            }
+            50% {
+                box-shadow: 0 0 10px currentColor,
+                            0 0 20px currentColor,
+                            0 0 30px currentColor,
+                            0 0 60px currentColor;
+            }
+        }
+
+        .rarity-common {
+            background: rgba(150, 150, 150, 0.2);
+            border: 2px solid #9e9e9e;
+        }
+        .rarity-common::before {
+            color: #9e9e9e;
+        }
+        .rarity-common .rarity-badge {
+            background: #9e9e9e;
+        }
+        .rarity-common h3,
+        .rarity-common .item-description {
+            color: #9e9e9e;
+        }
+
+        .rarity-uncommon {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4caf50;
+        }
+        .rarity-uncommon::before {
+            color: #4caf50;
+        }
+        .rarity-uncommon .rarity-badge {
+            background: #4caf50;
+        }
+        .rarity-uncommon h3,
+        .rarity-uncommon .item-description {
+            color: #4caf50;
+        }
+
+        .rarity-rare {
+            background: rgba(33, 150, 243, 0.2);
+            border: 2px solid #2196f3;
+        }
+        .rarity-rare::before {
+            color: #2196f3;
+        }
+        .rarity-rare .rarity-badge {
+            background: #2196f3;
+        }
+        .rarity-rare h3,
+        .rarity-rare .item-description {
+            color: #2196f3;
+        }
+
+        .rarity-epic {
+            background: rgba(156, 39, 176, 0.2);
+            border: 2px solid #9c27b0;
+        }
+        .rarity-epic::before {
+            color: #9c27b0;
+        }
+        .rarity-epic .rarity-badge {
+            background: #9c27b0;
+        }
+        .rarity-epic h3,
+        .rarity-epic .item-description {
+            color: #9c27b0;
+        }
+
+        .rarity-legendary {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
+        }
+        .rarity-legendary::before {
+            color: #ffc107;
+        }
+        .rarity-legendary .rarity-badge {
+            background: #ffc107;
+            color: #000;
+        }
+        .rarity-legendary h3,
+        .rarity-legendary .item-description {
+            color: #ffc107;
+        }
+
+        .rarity-mythic {
+            background: rgba(244, 67, 54, 0.2);
+            border: 2px solid #f44336;
+        }
+        .rarity-mythic::before {
+            color: #f44336;
+        }
+        .rarity-mythic .rarity-badge {
+            background: #f44336;
+        }
+        .rarity-mythic h3,
+        .rarity-mythic .item-description {
+            color: #f44336;
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .rarity-badge {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+            padding: 1px 4px;
+            border-radius: 6px;
+            font-size: 0.4em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+            align-self: start;
+            justify-self: start;
+        }
+
+        .item-card h3 {
+            grid-column: 1 / 2;
+            grid-row: 2 / 3;
+            font-size: 0.6em;
+            margin: 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .item-description {
+            grid-column: 1 / 2;
+            grid-row: 3 / 4;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 6px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.45em;
+            line-height: 1.2;
+            overflow: hidden;
+        }
+
+        .item-image-container {
+            grid-column: 2 / 3;
+            grid-row: 1 / 4;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .item-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .item-icon {
+            font-size: 3em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 0 6px currentColor);
+        }
+
+        .item-stock-container {
+            grid-column: 2 / 3;
+            grid-row: 4 / 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            padding: 2px;
+            font-size: 0.45em;
+            font-weight: bold;
+        }
+
+        .price-container {
+            grid-column: 1 / 2;
+            grid-row: 4 / 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .price {
+            font-size: 0.55em;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 0 0 6px rgba(255, 215, 0, 0.5);
+            white-space: nowrap;
+        }
+
+        .btn {
+            grid-column: 2 / 3;
+            grid-row: 5 / 6;
+            display: block;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #000;
+            padding: 2px 4px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.45em;
+            text-align: center;
+        }
+
+        .cart-btn {
+            grid-column: 1 / 2;
+            grid-row: 5 / 6;
+            display: block;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 2px 4px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            font-size: 0.45em;
+            text-align: center;
+        }
+
+        .btn:hover, .cart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+        }
+
+        .refresh-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            font-size: 0.8em;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.6);
+        }
+
+        footer {
+            text-align: center;
+            padding: 0;
+            background: rgba(0, 0, 0, 0.5);
+            flex-shrink: 0;
+            font-size: 0.5em;
+            height: 5%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 1px solid #ff0000;
+            border-left: 3px solid #ff0000;
+            border-right: 3px solid #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.2em;
+            color: #00ff88;
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 1.3em;
+            }
+
+            .logo p {
+                font-size: 0.75em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>K1NKDAPSSTORE</h1>
+                <p>🎣 Toko Item Fishing Roblox Garden Terpercaya 🎣</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="filter-section">
+        <h3>Filter by Rarity:</h3>
+        <button class="filter-btn filter-all active">All Items</button>
+        <button class="filter-btn filter-common">Common</button>
+        <button class="filter-btn filter-uncommon">Uncommon</button>
+        <button class="filter-btn filter-rare">Rare</button>
+        <button class="filter-btn filter-epic">Epic</button>
+        <button class="filter-btn filter-legendary">Legendary</button>
+        <button class="filter-btn filter-mythic">Mythic</button>
+    </section>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="items-grid" id="itemsGrid">
+                <div class="loading">⏳ Loading items dari Google Sheets...</div>
+            </div>
+        </div>
+    </div>
+
+    <button class="refresh-btn" onclick="loadItems()">🔄 Refresh Data</button>
+
+    <footer>
+        <div class="container">
+            <p>📱 WA: +62 XXX-XXXX-XXXX | 💬 Discord: K1NKDAPS#0000 | ✉️ k1nkdaps@store.com</p>
+            <p>&copy; 2024 K1NKDAPSSTORE - ⚠️ Trading aman sesuai ToS Roblox</p>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxu5UrYrzUi49Pj6mG2ZT4Ajah7G7R5KPmkkcD9FJD5n1m0jOC8EYK_mldam80rDTBz/exec';
+        
+        let allItems = [];
+        let currentFilter = 'all';
+
+        // Convert Google Drive view link to direct image link
+        function getDirectImageUrl(url) {
+            if (!url || url.trim() === '') return null;
+            
+            // Format 1: https://drive.google.com/file/d/FILE_ID/view?usp=drive_link
+            if (url.includes('drive.google.com/file/d/')) {
+                const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                if (match && match[1]) {
+                    return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w400`;
+                }
+            }
+            
+            // Format 2: https://drive.google.com/open?id=FILE_ID
+            if (url.includes('drive.google.com/open?id=')) {
+                const match = url.match(/id=([a-zA-Z0-9_-]+)/);
+                if (match && match[1]) {
+                    return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w400`;
+                }
+            }
+            
+            // Format 3: Direct ID
+            if (url.length < 100 && !url.includes('http')) {
+                return `https://drive.google.com/thumbnail?id=${url}&sz=w400`;
+            }
+            
+            // Jika URL biasa (bukan Drive), return as is
+            if (url.startsWith('http')) {
+                return url;
+            }
+            
+            return null;
+        }
+
+        // Format price to Rupiah
+        function formatPrice(price) {
+            return 'Rp ' + parseInt(price).toLocaleString('id-ID');
+        }
+
+        // Load items from Google Apps Script API
+        async function loadItems() {
+            const grid = document.getElementById('itemsGrid');
+            grid.innerHTML = '<div class="loading">⏳ Loading items dari database...</div>';
+            
+            try {
+                const response = await fetch(API_URL);
+                const result = await response.json();
+                
+                console.log('API Response:', result);
+                
+                if (!result.success || !result.data) {
+                    grid.innerHTML = '<div class="loading">⚠️ Error: Data tidak valid</div>';
+                    return;
+                }
+                
+                allItems = result.data.map(item => ({
+                    id: item['ID'] || '',
+                    name: item['NAMA ITEM'] || '',
+                    category: item['KATEGORI'] || '',
+                    price: item['HARGA'] || '0',
+                    rarity: item['RARITY'] || 'Common',
+                    imageUrl: item['LINK GAMBAR'] || '',
+                    stock: item['STOK'] || '0',
+                    description: item['DESKRIPSI'] || ''
+                }));
+                
+                console.log('Processed items:', allItems);
+                
+                if (allItems.length === 0) {
+                    grid.innerHTML = '<div class="loading">📦 Belum ada item di database</div>';
+                    return;
+                }
+                
+                renderItems();
+            } catch (error) {
+                console.error('Error loading items:', error);
+                grid.innerHTML = '<div class="loading">❌ Error loading items. Coba refresh lagi.</div>';
+            }
+        }
+
+        // Render items to grid
+        function renderItems() {
+            const grid = document.getElementById('itemsGrid');
+            let filteredItems = currentFilter === 'all' 
+                ? allItems 
+                : allItems.filter(item => item.rarity.toLowerCase() === currentFilter);
+            
+            // Urutan rarity dari jelek ke bagus
+            const rarityOrder = {
+                'common': 1,
+                'uncommon': 2,
+                'rare': 3,
+                'epic': 4,
+                'legendary': 5,
+                'mythic': 6
+            };
+            
+            // Jika filter "all", urutkan berdasarkan rarity dari rendah ke tinggi
+            if (currentFilter === 'all') {
+                filteredItems = filteredItems.sort((a, b) => {
+                    const rarityA = rarityOrder[a.rarity.toLowerCase()] || 0;
+                    const rarityB = rarityOrder[b.rarity.toLowerCase()] || 0;
+                    return rarityA - rarityB;
+                });
+            }
+            
+            if (filteredItems.length === 0) {
+                grid.innerHTML = '<div class="loading">📦 Tidak ada item untuk rarity ini</div>';
+                return;
+            }
+            
+            grid.innerHTML = filteredItems.map(item => {
+                const rarityClass = `rarity-${item.rarity.toLowerCase()}`;
+                const imageUrl = getDirectImageUrl(item.imageUrl);
+                
+                // Cek apakah ada gambar valid atau gunakan icon emoji
+                const hasValidImage = imageUrl !== null;
+                
+                return `
+                    <div class="item-card ${rarityClass}">
+                        <span class="rarity-badge">${item.rarity}</span>
+                        <h3>${item.name}</h3>
+                        
+                        <div class="item-description">
+                            ${item.description}
+                        </div>
+                        
+                        <div class="item-image-container">
+                            ${hasValidImage ? 
+                                `<img src="${imageUrl}" alt="${item.name}" class="item-image" 
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="item-icon" style="display:none;">📦</div>` :
+                                `<div class="item-icon">📦</div>`
+                            }
+                        </div>
+                        
+                        <div class="price-container">
+                            <div class="price">${formatPrice(item.price)}</div>
+                        </div>
+                        
+                        <div class="item-stock-container">
+                            STOK: ${item.stock}
+                        </div>
+                        
+                        <button class="cart-btn" onclick="alert('Item ${item.name} ditambahkan ke keranjang!')">KERANJANG</button>
+                        <button class="btn" onclick="alert('Hubungi admin untuk pemesanan ${item.name}!')">ORDER</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filterText = this.textContent.toLowerCase().trim();
+                currentFilter = filterText === 'all items' ? 'all' : filterText;
+                
+                renderItems();
+            });
+        });
+
+        // Load items on page load
+        loadItems();
+
+        // Auto refresh every 5 minutes
+        setInterval(loadItems, 300000);
+    </script>
+</body>
+</html>
